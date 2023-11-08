@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <title>Filtrowanie elementów w tablicy</title>
+</head>
+<body>
+  <script>
+    function filtruj(tablica, elementDoWyfiltrowania) {
+      var wynikowaTablica = [];
+
+      for (var i = 0; i < tablica.length; i++) {
+        if (tablica[i] === elementDoWyfiltrowania) {
+          wynikowaTablica.push(tablica[i]);
+        }
+      }
+
+      return wynikowaTablica;
+    }
+
+    function filtrujIWyświetl() {
+      var x = [10, 11, "ania", 11];
+      var f = 11;
+      var wynik = filtruj(x, f);
+      
+      
+      var wynik = document.getElementById("wynik");
+      wynik.textContent = "Wynik: " + wynik;
+    }
+  </script>
+
+  <button onclick="filtrujIWyświetl()">Filtruj i Wyświetl</button>
+  <p id="wynik">Wynik: </p>
+</body>
+</html>

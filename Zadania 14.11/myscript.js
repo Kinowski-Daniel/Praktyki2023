@@ -33,3 +33,58 @@ const drugiNajTytul = () => {
     const sortedTitles = books.map(book => book.title).sort((a, b) => b.length - a.length);
     console.log(sortedTitles[1] || '');
 };
+
+const zadanie9 = () => {
+    const promise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('Udało się!');
+      }, 5000);
+    });
+
+    promise.then((result) => {
+      console.log(result);
+    });
+  };
+
+  
+  const zadanie10 = () => {
+    const multiplyAsync = (x, y) => {
+      return new Promise((resolve, reject) => {
+        if (typeof x !== 'number' || typeof y !== 'number') {
+          reject(new Error('Jeden z argumentów nie jest liczbą!'));
+        } else {
+          const result = x * y;
+          resolve(result);
+        }
+      });
+    };
+
+    multiplyAsync(5, 10)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+ 
+  const zadanie11 = () => {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error('Błąd! Status nie jest równy 200');
+        }
+      })
+      .then((data) => {
+        data.forEach(({ title, body }) => {
+          console.log('Tytuł:', title);
+          console.log('Body:', body);
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };

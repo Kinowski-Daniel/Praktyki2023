@@ -11,28 +11,25 @@ const books = [
 const compose = (...functions) => data =>
   functions.reduceRight((value, func) => func(value), data);
 
-const policzWTytule = books =>
-  books
-    .filter(book => book.pages % 2 === 0 && book.genre.endsWith('y'))
-    .reduce((acc, book) => acc + book.title.replace(/\s/g, '').length, 0);
+const filtr = books => books.filter(book => book.pages % 2 === 0 && book.genre.endsWith('y'));
 
-const ilośćPozytywnychO = books =>
-  books
-    .filter(book => book.pages % 2 !== 0 && /\d/.test(book.title) && book.rating > 5)
-    .length;
+const ogranicz = books => books.reduce((acc, book) => acc + book.title.replace(/\s/g, '').length, 0);
 
-const drugiNajTytul = books => {
-  const sortedTitles = books.map(book => book.title).sort((a, b) => b.length - a.length);
-  return sortedTitles[1] || '';
-};
+const filtr2 = books => books.filter(book => book.pages % 2 !== 0 && /\d/.test(book.title) && book.rating > 5)
+    
+const dlugosc = books => books.length;
 
-const wynik6 = compose(policzWTytule)(books);
+const sortedTitles = books => books.map(book => book.title);
+  
+const sortowanie  = books => {books.sort((a, b) => b.length - a.length); return sortedTitles[1] || '';};
+
+const wynik6 = compose(filtr,ogranicz)(books);
 console.log('Ilość liter w tytułach spełniających kryteria:', wynik6);
 
-const wynik7 = compose(ilośćPozytywnychO)(books);
+const wynik7 = compose(filtr2,dlugosc)(books);
 console.log('Ilość książek spełniających kryteria:', wynik7);
 
-const wynik8 = compose(drugiNajTytul)(books);
+const wynik8 = compose(sortedTitles,sortowanie)(books);
 console.log('Drugi najdłuższy tytuł:', wynik8);
 
 const zadanie9 = () => {
@@ -89,38 +86,3 @@ const zadanie9 = () => {
         console.error(error);
       });
   };
-/*const books = [
-    {title: 'Total loss 100', pages: 600, genre: 'fantasy', rating: 7},
-    {title: 'Total enlightenment', pages: 250, genre: 'romance', rating: 4},
-    {title: 'Big loss', pages: 400, genre: 'fantasy', rating: 2},
-    {title: 'Tenth Joy', pages: 32, genre: 'action', rating: 9},
-    {title: 'Quickfix number 4', pages: 15, genre: 'fantasy', rating: 8},
-    {title: 'World Ender 3', pages: 199, genre: 'fantasy', rating: 1},
-    {title: 'Paranormal', pages: 200, genre: 'thriller', rating: 5},
-];
-
-const policzWTytule = () => {
-    let count = 0;
-    for (const book of books) {
-        if (book.pages % 2 === 0 && book.genre.endsWith('y')) {
-            const titleWithoutSpaces = book.title.replace(/\s/g, '');
-            count += titleWithoutSpaces.length;
-        }
-    }
-    console.log(count);
-};
-
-const iloścPozytywnychO = () => {
-    let count = 0;
-    for (const book of books) {
-        if (book.pages % 2 !== 0 && /\d/.test(book.title) && book.rating > 5) {
-            count++;
-        }
-    }
-    console.log(count);
-};
-
-const drugiNajTytul = () => {
-    const sortedTitles = books.map(book => book.title).sort((a, b) => b.length - a.length);
-    console.log(sortedTitles[1] || '');
-};*/

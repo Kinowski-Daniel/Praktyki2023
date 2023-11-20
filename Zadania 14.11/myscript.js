@@ -13,25 +13,27 @@ const compose = (...functions) => data =>
 
 const policzWTytule = books =>
   books
-      .filter(book => book.pages % 2 === 0 && book.genre.endsWith('y'))
-      .reduce((acc, book) => acc + book.title.replace(/\s/g, '').length, 0);
+    .filter(book => book.pages % 2 === 0 && book.genre.endsWith('y'))
+    .reduce((acc, book) => acc + book.title.replace(/\s/g, '').length, 0);
 
 const ilośćPozytywnychO = books =>
   books
-      .filter(book => book.pages % 2 !== 0 && /\d/.test(book.title) && book.rating > 5)
-      .length;
+    .filter(book => book.pages % 2 !== 0 && /\d/.test(book.title) && book.rating > 5)
+    .length;
 
 const drugiNajTytul = books => {
   const sortedTitles = books.map(book => book.title).sort((a, b) => b.length - a.length);
   return sortedTitles[1] || '';
 };
 
-const policzWTytuleClick = () => console.log(`Liczba znaków w tytułach spełniających kryteria: ${policzWTytule(books)}`);
+const wynik6 = compose(policzWTytule)(books);
+console.log('Ilość liter w tytułach spełniających kryteria:', wynik6);
 
-const ilośćPozytywnychOClick = () => console.log(`Liczba książek spełniających kryteria: ${ilośćPozytywnychO(books)}`);
+const wynik7 = compose(ilośćPozytywnychO)(books);
+console.log('Ilość książek spełniających kryteria:', wynik7);
 
-const drugiNajTytulClick = () => console.log(`Drugi najdłuższy tytuł: ${drugiNajTytul(books)}`);
-
+const wynik8 = compose(drugiNajTytul)(books);
+console.log('Drugi najdłuższy tytuł:', wynik8);
 
 const zadanie9 = () => {
     const promise = new Promise((resolve) => {
